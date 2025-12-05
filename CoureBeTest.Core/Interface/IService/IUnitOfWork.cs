@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using CoureBeTest.Core.Interface.IRepositories;
+using CoureBeTest.Model;
+using CoureBeTest.Model.Entities;
+using System;
 using System.Threading.Tasks;
 
-namespace CoureBeTest.Core.Interface.IService
+namespace CoureBeTest.Core.Interface
 {
-    internal interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
+        IGenericRepository<Country> Countries { get; }
+        IGenericRepository<CountryDetail> CountryDetails { get; }
+
+        Task<int> SaveAsync();
     }
 }

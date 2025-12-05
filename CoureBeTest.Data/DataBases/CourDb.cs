@@ -1,14 +1,8 @@
 ﻿using CoureBeTest.Model.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Reflection.Emit;
 
 namespace CoureBeTest.Data.DataBases
 {
-    public class CourDb
-    {
-
         public class CourDb : DbContext
         {
             public CourDb(DbContextOptions<CourDb> options) : base(options) { }

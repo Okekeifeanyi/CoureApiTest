@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoureBeTest.Core\CoureBeTest.Core.csproj" />
   </ItemGroup>
 
 </Project>

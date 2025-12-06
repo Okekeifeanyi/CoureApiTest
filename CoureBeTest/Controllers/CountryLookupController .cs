@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoureBeTest.API.DTOs;
 using CoureBeTest.Core.Interface.IServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoureBeTest.Controllers
 {
@@ -14,10 +15,10 @@ namespace CoureBeTest.Controllers
             _service = service;
         }
 
-        [HttpGet("{phoneNumber}")]
-        public async Task<IActionResult> GetPhoneDetails(string phoneNumber)
+        [HttpGet]
+        public async Task<IActionResult> GetPhoneDetails([FromQuery] CountryLookupRequestDto request)
         {
-            var response = await _service.LookupByPhone(phoneNumber);
+            var response = await _service.LookupByPhone(request.PhoneNumber);
 
             if (response == null)
                 return NotFound("Country code not recognized.");

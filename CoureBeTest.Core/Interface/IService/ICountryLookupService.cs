@@ -2,6 +2,6 @@
 {
     public interface ICountryLookupService
     {
-        Task<object?> LookupByPhone(string phoneNumber);
+        Task<CountryLookupResponseDto?> LookupByPhone(string phoneNumber);
     }
 }

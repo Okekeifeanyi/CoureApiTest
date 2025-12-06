@@ -2,7 +2,6 @@
 using CoureBeTest.Core.Interface.IServices;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace CoureBeTest.Service
 {
     public class CountryLookupService : ICountryLookupService
@@ -14,9 +13,9 @@ namespace CoureBeTest.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<object?> LookupByPhone(string phoneNumber)
+        public async Task<CountryLookupResponseDto?> LookupByPhone(string phoneNumber)
         {
-            if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length < 3)
+            if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length < 3 || !phoneNumber.All(char.IsDigit))
                 return null;
 
             var code = phoneNumber[..3];
@@ -29,19 +28,19 @@ namespace CoureBeTest.Service
             if (country == null)
                 return null;
 
-            return new
+            return new CountryLookupResponseDto
             {
-                number = phoneNumber,
-                country = new
+                Number = phoneNumber,
+                Country = new CountryDto
                 {
-                    country.CountryCode,
-                    country.Name,
-                    country.CountryIso,
-                    countryDetails = country.CountryDetails.Select(x => new
+                    CountryCode = country.CountryCode,
+                    Name = country.Name,
+                    CountryIso = country.CountryIso,
+                    CountryDetails = country.CountryDetails.Select(x => new OperatorDto
                     {
-                        x.Operator,
-                        x.OperatorCode
-                    })
+                        Operator = x.Operator,
+                        OperatorCode = x.OperatorCode
+                    }).ToList()
                 }
             };
         }

@@ -1,5 +1,6 @@
 ﻿using CoureBeTest.Controllers;
 using CoureBeTest.Core.Interface.IServices;
+using CoureBeTest.API.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -13,15 +14,32 @@ namespace CoureBeTest.Tests.Controllers
             // Arrange
             var mockService = new Mock<ICountryLookupService>();
             mockService.Setup(x => x.LookupByPhone("234803"))
-                       .ReturnsAsync(new { number = "234803" });
+                       .ReturnsAsync(new CountryLookupResponseDto
+                       {
+                           Number = "234803",
+                           Country = new CountryDto
+                           {
+                               CountryCode = "234",
+                               Name = "Nigeria",
+                               CountryIso = "NG",
+                               CountryDetails = new List<OperatorDto>
+                               {
+                                   new OperatorDto { Operator = "MTN Nigeria", OperatorCode = "MTN NG" }
+                               }
+                           }
+                       });
 
             var controller = new CountryLookupController(mockService.Object);
+            var dto = new CountryLookupRequestDto { PhoneNumber = "234803" };
 
             // Act
-            var result = await controller.GetPhoneDetails("234803");
+            var result = await controller.GetPhoneDetails(dto);
 
             // Assert
-            Assert.IsType<OkObjectResult>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var response = Assert.IsType<CountryLookupResponseDto>(okResult.Value);
+            Assert.Equal("234803", response.Number);
+            Assert.Equal("Nigeria", response.Country.Name);
         }
 
         [Fact]
@@ -30,12 +48,13 @@ namespace CoureBeTest.Tests.Controllers
             // Arrange
             var mockService = new Mock<ICountryLookupService>();
             mockService.Setup(x => x.LookupByPhone("999"))
-                       .ReturnsAsync((object)null);
+                       .ReturnsAsync((CountryLookupResponseDto?)null);
 
             var controller = new CountryLookupController(mockService.Object);
+            var dto = new CountryLookupRequestDto { PhoneNumber = "999" };
 
             // Act
-            var result = await controller.GetPhoneDetails("999");
+            var result = await controller.GetPhoneDetails(dto);
 
             // Assert
             Assert.IsType<NotFoundObjectResult>(result);

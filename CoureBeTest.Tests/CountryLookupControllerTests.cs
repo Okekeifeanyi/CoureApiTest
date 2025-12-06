@@ -11,7 +11,7 @@ namespace CoureBeTest.Tests.Controllers
         [Fact]
         public async Task GetPhoneDetails_ReturnsOk_WhenDataFound()
         {
-            // Arrange
+      
             var mockService = new Mock<ICountryLookupService>();
             mockService.Setup(x => x.LookupByPhone("234803"))
                        .ReturnsAsync(new CountryLookupResponseDto

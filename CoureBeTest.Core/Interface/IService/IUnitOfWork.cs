@@ -1,8 +1,4 @@
-﻿using CoureBeTest.Core.Interface.IRepositories;
-using CoureBeTest.Model;
-using CoureBeTest.Model.Entities;
-using System;
-using System.Threading.Tasks;
+﻿using CoureBeTest.Model.Entities;
 
 namespace CoureBeTest.Core.Interface
 {

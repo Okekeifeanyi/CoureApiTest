@@ -1,7 +1,5 @@
-﻿using CoureBeTest.Core.Interface.IRepositories;
-using CoureBeTest.Data.DataBases;
+﻿using CoureBeTest.Data.DataBases;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace CoureBeTest.Data.Repositories
 {

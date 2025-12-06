@@ -1,8 +1,6 @@
 ﻿using CoureBeTest.Core.Interface;
-using CoureBeTest.Core.Interface.IRepositories;
 using CoureBeTest.Data.DataBases;
 using CoureBeTest.Data.Repositories;
-using CoureBeTest.Model;
 using CoureBeTest.Model.Entities;
 
 namespace CoureBeTest.Data

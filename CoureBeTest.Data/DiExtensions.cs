@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using CoureBeTest.Core.Interface;
-using CoureBeTest.Core.Interface.IRepositories;
+﻿using CoureBeTest.Core.Interface;
 using CoureBeTest.Core.Interface.IServices;
+using CoureBeTest.Data.DataBases;
 using CoureBeTest.Data.Repositories;
 using CoureBeTest.Service;
-using CoureBeTest.Data.DataBases;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoureBeTest.Data
 {
@@ -14,8 +13,7 @@ namespace CoureBeTest.Data
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddDbContext<CourDb>(options =>
-                options.UseInMemoryDatabase("InMemoryCountryDb")
-            );
+                 options.UseInMemoryDatabase("InMemoryCountryDb"));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
